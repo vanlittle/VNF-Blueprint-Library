@@ -1,0 +1,57 @@
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# For those usages not covered by the Apache License, Version 2.0 please
+# contact:  osslegalrouting@vmware.com
+
+##
+
+###########################################################################
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: fortigate-osm_vnfd_id
+        name: fortigate-osm
+        description: Firewall
+        vdu:
+        -   id: fortigate-osm_vdu_id
+            name: fortigate-osm_vdu_name
+            vm-flavor:
+                vcpu-count: 1
+                memory-mb: 1024
+                storage-gb: 10
+            image: fortigate
+            guest-epa:
+                mempage-size: PREFER_LARGE
+                cpu-pinning-policy: DEDICATED
+            interface:
+            -   name: MANAGEMENT
+                type: EXTERNAL 
+                virtual-interface:
+                    type: E1000
+                external-connection-point-ref: mgmt1
+            -   name: DATA
+                type: EXTERNAL 
+                virtual-interface:
+                    type: E1000 
+                external-connection-point-ref: net1
+            -   name: DATA2
+                type: EXTERNAL 
+                virtual-interface:
+                    type: E1000
+                external-connection-point-ref: net2
+        connection-point:
+            -   name: mgmt1
+                type: VPORT
+            -   name: net1
+                type: VPORT
+            -   name: net2
+                type: VPORT
