@@ -1,0 +1,74 @@
+# Licensed under the Apache License, Version 2.0 (the "License"); you may
+# not use this file except in compliance with the License. You may obtain
+# a copy of the License at
+#
+#         http://www.apache.org/licenses/LICENSE-2.0
+#
+# Unless required by applicable law or agreed to in writing, software
+# distributed under the License is distributed on an "AS IS" BASIS, WITHOUT
+# WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied. See the
+# License for the specific language governing permissions and limitations
+# under the License.
+#
+# For those usages not covered by the Apache License, Version 2.0 please
+# contact:  osslegalrouting@vmware.com
+
+##
+
+###########################################################################
+vnfd:vnfd-catalog:
+    vnfd:
+    -   id: vSGW-LBO_vnfd_id
+        name: vSGW-LBO
+        description: vSGW-LBO
+        vdu:
+        -   id: vSGW-LBO_vdu_id
+            name: vSGW-LBO_vdu_name
+            vm-flavor:
+                vcpu-count: 2
+                memory-mb: 4096
+                storage-gb: 20
+            image: sgwlbo-vm
+            cloud-init-file: echo.sh
+            guest-epa:
+                mempage-size: SMALL
+                cpu-pinning-policy: DEDICATED
+                numa-node-policy:
+                    node-cnt: 1
+            interface:
+            -   name: OAM
+                type: EXTERNAL 
+                virtual-interface:
+                    type: VMXNET3
+                external-connection-point-ref: mgmt1
+            -   name: S1U
+                type: EXTERNAL 
+                virtual-interface:
+                    type: VMXNET3 
+                external-connection-point-ref: net1
+            -   name: S11
+                type: EXTERNAL 
+                virtual-interface:
+                    type: VMXNET3
+                external-connection-point-ref: net2
+            -   name: S5
+                type: EXTERNAL 
+                virtual-interface:
+                    type: VMXNET3
+                external-connection-point-ref: net3
+            -   name: LBO
+                type: EXTERNAL 
+                virtual-interface:
+                    type: VMXNET3
+                external-connection-point-ref: net4
+        connection-point:
+            -   name: mgmt1
+                type: VPORT
+            -   name: net1
+                type: VPORT
+            -   name: net2
+                type: VPORT
+            -   name: net3
+                type: VPORT
+            -   name: net4
+                type: VPORT
